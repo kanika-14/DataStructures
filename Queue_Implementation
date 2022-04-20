@@ -1,0 +1,74 @@
+/* Queue Implementation Using Arrays */
+import java.util.Arrays;
+
+public class Queue {
+	
+	private int front, rear, size;
+	private int capacity;
+	private int[] array;
+	  
+	  public Queue(int capacity){
+		this.capacity = capacity;
+	    this.front = this.rear = this.size = 0;
+	    this.array = new int[capacity];
+	  }
+	  
+	  public boolean isEmpty(){
+		  if(this.size == 0) {
+			  return true;
+		  }
+		  return false;
+	  }
+	  
+	  public void add(int data) {
+		  if(this.capacity == this.size) {
+			  System.out.println("Queue Capacity Reached");
+			  return;
+		  }
+		  if(this.size != 0) {
+			  this.rear++;  
+		  }
+		  this.array[this.rear] = data;
+		  
+		  this.size++;
+	  }
+	  
+	  /* This will fail as we are not deleting that element from the array but only changing the reference 
+	   * So actual size of array would be smaller but it will give index out of bounds exception after 
+	   * certain remove and add operations depending on the capacity
+	   * */
+	  public void remove() {
+		  if(this.isEmpty()) {
+			  System.out.println("Remove operation cannot be performed because queue is empty");
+			  return;
+		  }
+		  this.front++;
+		  this.size--;
+	  }
+	  
+	  
+	  public void removeFully() {
+		  if(this.isEmpty()) {
+			  System.out.println("Remove operation cannot be performed because queue is empty");
+			  return;
+		  }
+		  for(int i=0; i<this.size-1; i++) {
+			  this.array[i] = this.array[i+1];
+		  }
+		  this.rear--;
+		  this.size--;
+		  this.array[this.size] = 0;
+	  }
+	  
+	  public int getFirstElement() {
+		  return this.array[this.front];
+	  }
+	  
+	  public int getLastElement() {
+		  return this.array[this.rear];
+	  }
+	  
+	  public String printQueue() {
+		  return Arrays.toString(this.array);
+	  }
+}
